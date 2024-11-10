@@ -1,27 +1,9 @@
 import { buttonsData, menu } from "./db.js";
-import { elements } from "./helper.js";
-
-//olay izleyicileri
-
-//sayfa yükllendiği anda renderMeNuItems Fonk çalıştır ve menu paremetresi gönder
-// document.addEventListener("DOMContentLoaded", renderMenuItems(menu));
-
-// document.addEventListener("DOMContentLoaded", renderButtons("all"));
-
-//!sayfa yüklendiğinde çalışacak fonksiyonları tek bir fon halinde yazdık
-
-document.addEventListener("DOMContentLoaded", () => {
-
-    renderMenuItems(menu);
-    renderButtons("all");
-
-
-});
+import { calculatePrice, elements } from "./helper.js";
 
 
 
-//butonların bulunduğu alana clik olayı izlediğimizde çalışacak fonk
-elements.buttonsArea.addEventListener("click", searchCategory);
+
 
 // fonksiyonalar
 
@@ -57,14 +39,15 @@ function renderMenuItems(menuItems) {
         `
         <a
         id="card"
-        href="/productDetail.html/item-1.jpeg"
+        href="/productDetail.html?id=${item.id}&category=${item.category}&price=${item.price
+        }"
         class="text-decoration-none text-black d-flex flex-column gap-2 flex-md-row"
       >
         <img class="rounded" src="${item.img}" alt="" />
         <div>
           <div class="d-flex justify-content-between align-items-center">
             <h5>${item.title}</h5>
-            <p class="text-success">${item.price}</p>
+            <p class="text-success">${calculatePrice(item.price)}</p>
           </div>
           <p class="lead">
            ${item.desc}
@@ -104,10 +87,29 @@ function renderButtons(active) {
 
 
 
-        console.log(buttonEle)
 
 
 
     })
 
 }
+
+//!olay izleyicileri
+
+//sayfa yükllendiği anda renderMeNuItems Fonk çalıştır ve menu paremetresi gönder
+// document.addEventListener("DOMContentLoaded", renderMenuItems(menu));
+
+// document.addEventListener("DOMContentLoaded", renderButtons("all"));
+
+//!sayfa yüklendiğinde çalışacak fonksiyonları tek bir fon halinde yazdık
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    renderMenuItems(menu);
+    renderButtons("all");
+
+
+});
+
+//butonların bulunduğu alana clik olayı izlediğimizde çalışacak fonk
+elements.buttonsArea.addEventListener("click", searchCategory);
